@@ -1,0 +1,15 @@
+[
+  {
+    "content": "I will inspect the workspace first.",
+    "tool_calls": [
+      {
+        "id": "list-1",
+        "name": "list_files",
+        "arguments": {"path": ".", "recursive": true}
+      }
+    ]
+  },
+  {
+    "content": "The workspace listing has been returned by the tool. This deterministic FakeModel demo is complete."
+  }
+]

@@ -1,4 +1,3 @@
-[MiniAgent-README.md](https://github.com/user-attachments/files/32593235/MiniAgent-README.md)
 # Safe Mini Agent
 
 这是一个不依赖 LangChain、LangGraph、CrewAI 或 AutoGen 的命令行 Mini Agent。核心循环、模型接口、工具注册、安全边界与错误恢复都由项目自身实现，运行时只需要 Python 3.10+。
@@ -15,6 +14,14 @@
 - `write_file`：创建、覆盖或追加文件。
 
 新增工具只需实现 `name`、`description`、`parameters`、`read_only` 与 `run()`，再注册到 `ToolRegistry`，不需要修改 Agent Loop。
+
+为兼容题目提供的 starter 导入方式，项目保留以下稳定入口：
+
+- `mini_agent.contracts`：`Model`、`ModelResponse`、`ToolCall`、`ToolResult` 等基础接口；
+- `mini_agent.fake_model`：可按预设顺序返回响应的 `FakeModel`；
+- `mini_agent.agent`：`Agent` 与 Agent Loop 实现。
+
+内部模块可以继续拆分或扩展，而使用 starter 接口的代码无需随之修改。
 
 ## 快速运行
 
@@ -97,4 +104,4 @@ python -m mini_agent --workspace workspace --script my_script.json --approve-wri
 python -m unittest discover -v
 ```
 
-测试覆盖直接回答、工具循环、结果回传、未知工具、模型异常、步数上限、读写权限、路径越界、参数错误、搜索和防覆盖行为。
+测试覆盖直接回答、工具循环、结果回传、starter 接口兼容、未知工具、模型异常、步数上限、读写权限、路径越界、参数错误、搜索和防覆盖行为。
