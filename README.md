@@ -79,6 +79,28 @@ python -m mini_agent --workspace workspace --model-factory my_adapter:create_mod
 
 厂商适配逻辑因此与 Agent Loop 分离。
 
+### `mini` 全局快捷指令（Windows）
+
+项目根目录还提供 `mini.cmd`。把项目目录加入当前用户的 `PATH` 后，重新打开 PowerShell，即可从任意目录启动：
+
+```powershell
+mini
+mini "列出工作区内容"
+```
+
+`mini` 默认使用离线 FakeModel，且写操作仍会逐次询问。需要预先批准本次运行的写操作时使用：
+
+```powershell
+mini --approve-writes "生成报告"
+```
+
+接入自定义模型工厂后，设置一次环境变量即可让快捷指令使用真实模型：
+
+```powershell
+$env:MINI_MODEL_FACTORY = "my_adapter:create_model"
+mini "总结 materials 中的资料"
+```
+
 ## 写入权限
 
 默认情况下，每次 `write_file` 都会展示动作和相对路径，并要求人工确认。适用于已明确授权的自动化场景时，可以为当前进程预授权：
