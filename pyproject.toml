@@ -7,6 +7,7 @@ name = "safe-mini-agent"
 version = "0.1.0"
 description = "A small, framework-free command-line agent with a safe workspace tool system."
 requires-python = ">=3.10"
+dependencies = ["openai>=1.0.0"]
 
 [project.scripts]
 mini-agent = "mini_agent.cli:main"

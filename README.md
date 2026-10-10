@@ -94,7 +94,44 @@ mini "列出工作区内容"
 mini --approve-writes "生成报告"
 ```
 
-接入自定义模型工厂后，设置一次环境变量即可让快捷指令使用真实模型：
+项目内置 OpenAI-compatible 适配器。最简单的方式是打开项目根目录的 `config.json`，填写三个值：
+
+```json
+{
+  "api_key": "你的 API Key",
+  "base_url": "服务商提供的 API 地址",
+  "model": "服务商提供的模型名称",
+  "timeout": 60
+}
+```
+
+保存后直接运行：
+
+```powershell
+mini
+mini "总结 materials 中的资料"
+```
+
+`config.json` 已加入 `.gitignore`，不会被提交到 GitHub；`config.example.json` 是不含真实密钥的配置模板。OpenAI 官方接口使用 `https://api.openai.com/v1`，其他服务商需填写其 OpenAI-compatible 地址，并确保支持 Chat Completions 与 Function Calling。
+
+也可以改用环境变量（环境变量优先于 `config.json`）：
+
+```powershell
+$env:MINI_API_KEY = "你的 API Key"
+$env:MINI_BASE_URL = "服务商提供的 API 地址"
+$env:MINI_MODEL = "服务商提供的模型名称"
+mini "总结 materials 中的资料"
+```
+
+如果使用 OpenAI 官方接口，可以省略 `MINI_BASE_URL`。`mini.cmd` 检测到 `config.json` 或 `MINI_MODEL` 后会自动加载 `mini_agent.openai_compatible:create_model`。
+
+首次使用真实模型前安装项目和依赖：
+
+```powershell
+python -m pip install -e .
+```
+
+适配器还兼容 `OPENAI_API_KEY`、`OPENAI_BASE_URL` 和 `OPENAI_MODEL`。需要接入不兼容 Chat Completions 的厂商时，仍可设置自己的工厂：
 
 ```powershell
 $env:MINI_MODEL_FACTORY = "my_adapter:create_model"

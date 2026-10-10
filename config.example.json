@@ -1,0 +1,6 @@
+{
+  "api_key": "在这里粘贴你的 API Key",
+  "base_url": "https://api.openai.com/v1",
+  "model": "在这里填写模型名称",
+  "timeout": 60
+}
